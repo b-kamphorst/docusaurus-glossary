@@ -1,0 +1,11 @@
+{
+  "jsc": {
+    "parser": { "syntax": "typescript", "tsx": false, "decorators": false },
+    "target": "es2023",
+    "transform": { "react": { "runtime": "automatic" } }
+  },
+  "module": {
+    "type": "es6"
+  },
+  "sourceMaps": true
+}

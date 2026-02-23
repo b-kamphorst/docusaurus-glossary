@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": { "@generated/*": ["src/theme/__generated_stub__/*"] }
+  },
+  "include": ["src", "src/theme/__generated_stub__/*.json"]
+}
