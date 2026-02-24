@@ -23,8 +23,6 @@ export interface Term {
 
 export interface LoadTermsResult {
   terms: Term[];
-  /** Path to index.md/mdx if it exists, otherwise null */
-  indexPreamblePath: string | null;
 }
 
 export default function loadTerms(dir: string): LoadTermsResult {
@@ -36,6 +34,7 @@ export default function loadTerms(dir: string): LoadTermsResult {
       const fullPath = path.join(dir, f);
       const source = fs.readFileSync(fullPath, "utf-8");
       const { attributes, body } = fm<TermFrontmatter>(source);
+
       return {
         id:
           attributes.id || slugify(f.replace(/\.mdx?$/, ""), { remove: /\W/g }),
@@ -46,11 +45,6 @@ export default function loadTerms(dir: string): LoadTermsResult {
       };
     });
 
-  // Optional index.md / index.mdx
-  let indexPath = path.join(dir, "index.mdx");
-  if (!fs.existsSync(indexPath)) indexPath = path.join(dir, "index.md");
-  const indexPreamblePath = fs.existsSync(indexPath) ? indexPath : null;
-
   // TODO: fail if there are conflicting term ids
-  return { terms, indexPreamblePath };
+  return { terms };
 }

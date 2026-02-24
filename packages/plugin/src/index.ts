@@ -1,8 +1,18 @@
+import { logger } from "@docusaurus/logger";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import fs from "fs";
 import path from "path";
 import loadTerms, { type LoadTermsResult } from "./loadTerms.js";
 export type { Term } from "./loadTerms.js";
+
+const suggestedGlossaryIndex = `
+---
+title: Glossary
+---
+
+This glossary collects all our terms with a short description in a single overview. Click any term to view a more detailed description.
+
+`;
 
 /**
  * Options accepted by the plugin (from docusaurus.config.js)
@@ -10,28 +20,31 @@ export type { Term } from "./loadTerms.js";
 export interface GlossaryPluginOptions {
   /**
    * Relative path (from siteDir) to the glossary directory.
-   * Defaults to "glossary"
+   * The glossary directory should be in the docs routeBasePath.
+   * Defaults to "docs/glossary".
    */
   path?: string;
 
   /**
-   * Base route for the glossary pages.
-   * Defaults to "/"
+   * Throw a build-time error if there exists no glossary index page.
+   * If "false", display a build-time warning instead.
+   * Defaults to "true".
    */
-  routeBasePath?: string;
+  throwOnMissingIndex?: boolean;
 }
 
 export default function glossaryPlugin(
   context: LoadContext,
   options: GlossaryPluginOptions,
 ): Plugin<LoadTermsResult> {
-  const { siteDir, baseUrl } = context;
-  const glossaryPath = options.path ?? "glossary";
-  const glossaryDir = path.resolve(siteDir, glossaryPath);
-  const routeBasePath = options.routeBasePath ?? "/";
-  const fullGlossaryRoute = `${baseUrl}/${routeBasePath}/${glossaryPath}`
-    .replace(/\/+/g, "\/")
-    .replace(/\/$/, "");
+  const { siteDir } = context;
+  const throwOnMissingIndex = options.throwOnMissingIndex ?? true;
+  const glossaryPath = options.path ?? path.join("docs", "glossary");
+  const sanitizedGlossaryPath = glossaryPath
+    .replace(/\\|\//g, path.sep)
+    .replace(new RegExp(`${path.sep}+`), "/")
+    .replace(/^\//, "");
+  const glossaryDir = path.resolve(siteDir, sanitizedGlossaryPath);
 
   return {
     name: "docusaurus-plugin-glossary",
@@ -41,41 +54,22 @@ export default function glossaryPlugin(
     },
 
     async contentLoaded({ content, actions }) {
-      const { terms, indexPreamblePath } = content;
-      const { addRoute, createData } = actions;
+      // Expose terms data
+      const { terms } = content;
+      actions.setGlobalData(terms);
 
-      const glossaryData = await createData(
-        "glossary.json",
-        JSON.stringify(terms),
-      );
-
-      const glossaryIndexModules: Record<string, string> = {
-        glossary: glossaryData,
-      };
-
-      if (indexPreamblePath) {
-        const glossaryIndexPreamble = await createData(
-          "glossaryIndex.mdx",
-          fs.readFileSync(indexPreamblePath, "utf-8"),
-        );
-        glossaryIndexModules["indexPreamble"] = glossaryIndexPreamble;
-      }
-
-      addRoute({
-        path: `${fullGlossaryRoute}`,
-        exact: true,
-        component: "@theme/GlossaryIndex",
-        modules: glossaryIndexModules,
-      });
-
-      for (const term of terms) {
-        addRoute({
-          path: `${fullGlossaryRoute}/${term.normalizedTermPath}`,
-          component: "@theme/GlossaryTerm",
-          modules: {
-            term: await createData(`${term.id}.json`, JSON.stringify(term)),
-          },
-        });
+      // Ensure there is a glossary index
+      if (
+        !!terms &&
+        !fs.existsSync(path.resolve(glossaryDir, "index.md")) &&
+        !fs.existsSync(path.resolve(glossaryDir, "index.mdx"))
+      ) {
+        const missingIndexMsg = `Found terms defined in ${glossaryDir}, but that directory does not contain an index.md or index.mdx file. Please create an index. Our suggested index.md:\n\`\`\`${suggestedGlossaryIndex}\`\`\``;
+        if (throwOnMissingIndex) {
+          throw new Error(missingIndexMsg);
+        } else {
+          logger.warn(missingIndexMsg);
+        }
       }
     },
   };

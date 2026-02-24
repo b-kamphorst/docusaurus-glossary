@@ -1,3 +1,4 @@
+import remarkGlossary from "@b-kamphorst/docusaurus-plugin-glossary/dist/remark";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 
@@ -25,6 +26,7 @@ const config: Config = {
         docs: {
           path: "docs",
           routeBasePath: "/",
+          remarkPlugins: [remarkGlossary],
         },
       } satisfies Preset.Options,
     ],

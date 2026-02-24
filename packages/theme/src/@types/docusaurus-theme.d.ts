@@ -21,8 +21,18 @@ declare module "@docusaurus/useDocusaurusContext" {
   export function useDocusaurusContext(): any;
 }
 
+declare module "@docusaurus/useGlobalData" {
+  export function usePluginData<T = any>(pluginId: string): T;
+}
+
 declare module "@docusaurus/theme-common" {
   export function useThemeConfig(): any;
+}
+
+declare module "@theme-original/MDXComponents" {
+  import type { ComponentType } from "react";
+  const MDXComponents: ComponentType<any>;
+  export default MDXComponents;
 }
 
 declare module "@docusaurus/Head" {
