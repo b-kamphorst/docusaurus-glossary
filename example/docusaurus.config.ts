@@ -1,4 +1,4 @@
-import remarkGlossary from "@b-kamphorst/docusaurus-plugin-glossary/dist/remark";
+import remarkGlossary from "@b-kamphorst/docusaurus-plugin-glossary/remark";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 

@@ -3,8 +3,18 @@
   "version": "0.1.0",
   "description": "Docusaurus plugin to generate a glossary from markdown files ('terms'). All references to terms are transformed into tooltips that display short descriptions on hover.",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./remark": {
+      "import": "./dist/remark/index.js",
+      "require": "./dist/remark/index.js",
+      "types": "./dist/remark/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
