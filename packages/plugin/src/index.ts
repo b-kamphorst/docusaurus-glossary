@@ -2,8 +2,8 @@ import { logger } from "@docusaurus/logger";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import fs from "fs";
 import path from "path";
-import loadTerms, { type LoadTermsResult } from "./loadTerms.js";
-export type { Term } from "./loadTerms.js";
+import loadTerms, { type LoadTermsResult } from "./load-terms.js";
+export type { Term } from "./load-terms.js";
 
 const suggestedGlossaryIndex = `
 ---

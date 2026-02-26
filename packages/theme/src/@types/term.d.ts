@@ -1,6 +1,6 @@
 export interface Term {
-  id: string;
+  path: string;
   title: string;
-  normalizedTermPath: string;
   hoverText: string;
+  description: string;
 }

@@ -12,7 +12,7 @@
   "author": "Bart Kamphorst",
   "dependencies": {
     "@b-kamphorst/docusaurus-plugin-glossary": "^0.1.0",
-    "react-markdown": "^10.1.0"
+    "react-tooltip": "^5.30.0"
   },
   "peerDependencies": {
     "@docusaurus/core": "^3.0.0",

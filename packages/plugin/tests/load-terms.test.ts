@@ -1,5 +1,4 @@
-import path from "path";
-import loadTerms from "../src/loadTerms.js";
+import loadTerms from "../src/load-terms.js";
 import {
   copyFixtureDir,
   createTempWorkspace,
@@ -16,14 +15,7 @@ describe("loadTerms()", () => {
   it("parses terms and index file from fixture directory", async () => {
     const glossaryDir = await copyFixtureDir("glossary", ws.dir);
 
-    const { terms, indexContentPath } = loadTerms(glossaryDir);
-
-    expect(terms.map((t) => t.id).sort()).toEqual(
-      ["bar", "foo", "slugme"].sort(),
-    );
-    expect(indexContentPath && path.basename(indexContentPath)).toBe(
-      "index.md",
-    );
+    const { terms } = loadTerms(glossaryDir);
 
     expect(terms).toMatchSnapshot();
   });

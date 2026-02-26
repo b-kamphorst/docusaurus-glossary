@@ -1,8 +1,7 @@
 import fm from "front-matter";
 import fs from "fs";
 import path from "path";
-import slugify from "slugify";
-import { normalizeTermPath } from "./remark/transformGlossaryLink";
+import { normalizeGlossaryPath } from "./utils";
 
 interface TermFrontmatter {
   /** If absent, we fall back to filename (without .md / .mdx) */
@@ -14,11 +13,10 @@ interface TermFrontmatter {
 }
 
 export interface Term {
-  id: string;
+  path: string;
   title: string;
   hoverText: string;
   description: string;
-  normalizedTermPath: string;
 }
 
 export interface LoadTermsResult {
@@ -36,15 +34,12 @@ export default function loadTerms(dir: string): LoadTermsResult {
       const { attributes, body } = fm<TermFrontmatter>(source);
 
       return {
-        id:
-          attributes.id || slugify(f.replace(/\.mdx?$/, ""), { remove: /\W/g }),
+        path: normalizeGlossaryPath(f).replace(/\.mdx?/, ""),
         title: attributes.title,
         hoverText: attributes.hoverText || "",
         description: body.trim(),
-        normalizedTermPath: normalizeTermPath(f),
       };
     });
 
-  // TODO: fail if there are conflicting term ids
   return { terms };
 }

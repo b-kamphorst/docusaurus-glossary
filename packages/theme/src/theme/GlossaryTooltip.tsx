@@ -1,40 +1,40 @@
-import Link from "@docusaurus/Link";
+import { usePluginData } from "@docusaurus/useGlobalData";
 import React from "react";
-
-// export default function GlossaryTooltip({
-//   id,
-//   children,
-// }: GlossaryTooltipProps) {
-//   return (
-//     <span title={map[id]} style={{ borderBottom: "1px dotted" }}>
-//       {/* <Link to={`/glossary/${id}`}>{children}</Link> */}
-//       {children}
-//     </span>
-//   );
-// }
+import { Term } from "../@types/term.js";
+import { TOOLTIP_ID } from "../constants.js";
 
 interface GlossaryTooltipProps {
-  id: string; // Term id
+  termId: string;
   children: React.ReactNode; // content inside the tooltip/link
-  hoverMap: Record<string, string>; // Map from term id -> hover text, passed by plugin
-  routeBasePath?: string; // optional base path for glossary pages
 }
 
 export default function GlossaryTooltip({
-  id,
+  termId,
   children,
-  hoverMap,
-  routeBasePath = "glossary",
 }: GlossaryTooltipProps) {
-  const hoverText = hoverMap[id];
+  const termMap = getTermMap();
+  const term = termMap[termId];
+  if (!term) {
+    console.warn(`Glossary term '${termId}' is not recognized.`);
+    return children;
+  }
 
+  const hoverText = termMap[termId].hoverText;
   return (
-    <span
-      title={hoverText}
-      style={{ borderBottom: "1px dotted", cursor: "help" }}
-    >
-      <Link to={`/${routeBasePath}/${id}`}>{children}</Link>
+    <span data-tooltip-id={TOOLTIP_ID} data-tooltip-content={hoverText}>
       {children}
     </span>
   );
+}
+
+// Module-level cache
+let termMap: Record<string, Term> | null = null;
+
+function getTermMap(): Record<string, Term> {
+  if (!termMap) {
+    const terms: Term[] =
+      usePluginData<Term[]>("docusaurus-plugin-glossary") || [];
+    termMap = Object.fromEntries(terms.map((t) => [t.path, t]));
+  }
+  return termMap;
 }

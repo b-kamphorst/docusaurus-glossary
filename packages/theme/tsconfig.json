@@ -5,8 +5,7 @@
     "outDir": "dist",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "baseUrl": ".",
-    "paths": { "@generated/*": ["src/theme/__generated_stub__/*"] }
+    "baseUrl": "."
   },
-  "include": ["src", "src/theme/__generated_stub__/*.json"]
+  "include": ["src"]
 }

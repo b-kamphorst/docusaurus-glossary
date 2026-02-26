@@ -26,7 +26,6 @@
   "license": "MIT",
   "dependencies": {
     "front-matter": "^4.0.2",
-    "slugify": "^1.6.6",
     "unist-util-visit": "^5.1.0"
   },
   "peerDependencies": {
