@@ -155,4 +155,15 @@ describe("remarkTransformGlossaryLink", () => {
 "
 `);
   });
+
+  test("handles files in windows", async () => {
+    const input = "[My term](./glossary/my-term)";
+
+    const output = await run(input, { path: "\\docs\\page.md" });
+
+    expect(output).toMatchInlineSnapshot(`
+"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"
+`);
+  });
 });
