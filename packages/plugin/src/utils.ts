@@ -17,8 +17,5 @@ export function specifyGlossaryPath(glossaryPath: string | undefined): string {
 export function normalizeGlossaryPath(
   glossaryPath: string | undefined,
 ): string {
-  return specifyGlossaryPath(glossaryPath).replace(
-    new RegExp(`${path.sep}`),
-    "/",
-  );
+  return specifyGlossaryPath(glossaryPath).replaceAll(path.sep, "/");
 }
