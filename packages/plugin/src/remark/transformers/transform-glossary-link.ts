@@ -4,7 +4,9 @@ import path from "path";
 import type { Parent } from "unist";
 import { visit, type Visitor } from "unist-util-visit";
 import { VFile } from "vfile";
-import { specifyGlossaryPath } from "../../utils.js";
+import { getPathSep, specifyGlossaryPath } from "../../utils.js";
+
+const pathsep = getPathSep();
 
 export interface TransformGlossaryLinkOptions {
   glossaryPath?: string; // defaults to "/glossary"
@@ -20,7 +22,7 @@ export default function remarkTransformGlossaryLink(
   options?: TransformGlossaryLinkOptions,
 ) {
   const specifiedGlossaryPath = specifyGlossaryPath(options?.glossaryPath);
-  const prefix = `${specifiedGlossaryPath}${path.sep}`;
+  const prefix = `${specifiedGlossaryPath}${pathsep}`;
 
   /**
    * Transform links from /<glossaryPath>/:id into:
@@ -34,12 +36,12 @@ export default function remarkTransformGlossaryLink(
       if (node.url.startsWith(".")) {
         resolvedUrl = path.resolve(file.cwd, ...node.url.split("/"));
       } else {
-        resolvedUrl = "/" + node.url.split("/").join(path.sep);
+        resolvedUrl = "/" + node.url.split("/").join(pathsep);
       }
 
       // Choice: we only consider links to files directly in <glossaryPath>, not to subdirectories thereof.
       const acceptedLinkRegex = new RegExp(
-        `^(?:(?!${path.sep}${prefix}).)*${path.sep}${prefix}([^${path.sep}]+?)(\.mdx?)?$`,
+        `^(?:(?!${pathsep}${prefix}).)*${pathsep}${prefix}([^${pathsep}]+?)(\.mdx?)?$`,
       );
       const matchedTermPath = resolvedUrl.match(acceptedLinkRegex);
       if (!matchedTermPath) return;

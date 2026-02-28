@@ -3,7 +3,10 @@ import type { LoadContext, Plugin } from "@docusaurus/types";
 import fs from "fs";
 import path from "path";
 import loadTerms, { type LoadTermsResult } from "./load-terms.js";
+import { getPathSep } from "./utils.js";
 export type { Term } from "./load-terms.js";
+
+const pathsep = getPathSep();
 
 const suggestedGlossaryIndex = `
 ---
@@ -41,8 +44,7 @@ export default function glossaryPlugin(
   const throwOnMissingIndex = options.throwOnMissingIndex ?? true;
   const glossaryPath = options.path ?? path.join("docs", "glossary");
   const sanitizedGlossaryPath = glossaryPath
-    .replace(/\\|\//g, path.sep)
-    .replace(new RegExp(`${path.sep}+`), "/")
+    .replace(/[\\|\/]+/g, pathsep)
     .replace(/^\//, "");
   const glossaryDir = path.resolve(siteDir, sanitizedGlossaryPath);
 

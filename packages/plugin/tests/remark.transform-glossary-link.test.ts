@@ -1,18 +1,4 @@
-import remarkMdx from "remark-mdx";
-import remarkParse from "remark-parse";
-import remarkStringify from "remark-stringify";
-import { unified } from "unified";
-import remarkTransformGlossaryLink from "../src/remark/transformers/transform-glossary-link";
-
-function run(md: string, { path = "/docs/page.md", options = {} } = {}) {
-  return unified()
-    .use(remarkParse)
-    .use(remarkMdx)
-    .use(remarkTransformGlossaryLink, options)
-    .use(remarkStringify)
-    .process({ value: md, path })
-    .then((file) => String(file));
-}
+import { run } from "./remark.transform-glossary-link.utils";
 
 describe("remarkTransformGlossaryLink", () => {
   test("transforms absolute links starting with '/'", async () => {
@@ -149,17 +135,6 @@ describe("remarkTransformGlossaryLink", () => {
     const input = "[My term](terms/my-term)";
 
     const output = await run(input, { options: { glossaryPath: "/terms" } });
-
-    expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
-"
-`);
-  });
-
-  test("handles files in windows", async () => {
-    const input = "[My term](./glossary/my-term)";
-
-    const output = await run(input, { path: "\\docs\\page.md" });
 
     expect(output).toMatchInlineSnapshot(`
 "<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
