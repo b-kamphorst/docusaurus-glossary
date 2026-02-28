@@ -1,9 +1,10 @@
 import { Root } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import { VFile } from "vfile";
-import { getPathSep, specifyGlossaryPath } from "../../utils";
+import { getEscapedPathSep, specifyGlossaryPath } from "../../utils";
 
-const pathsep = getPathSep();
+const ePathSep = getEscapedPathSep();
+
 export interface AppendGlossaryIndexOptions {
   glossaryPath?: string; // defaults to "/glossary"
 }
@@ -20,7 +21,7 @@ export default function transformerAppendGlossaryIndexFactory(
     const filePath = file.history?.[0] ?? "";
 
     const indexPathRegex = new RegExp(
-      `${pathsep}${glossaryPath}${pathsep}index.mdx?$`,
+      `${ePathSep}${glossaryPath}${ePathSep}index.mdx?$`,
     );
     const isGlossaryIndex = filePath.match(indexPathRegex);
 

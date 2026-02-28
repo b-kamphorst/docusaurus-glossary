@@ -26,3 +26,8 @@ export function normalizeGlossaryPath(
 export function getPathSep() {
   return path.sep;
 }
+
+// Returns escaped path.sep
+export function getEscapedPathSep() {
+  return "\\" + getPathSep();
+}
