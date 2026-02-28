@@ -1,15 +1,24 @@
 import { jest } from "@jest/globals";
+import path from "path";
 import * as actualUtils from "../src/utils";
 
 describe("remarkTransformGlossaryLink", () => {
-  test("handles files in windows", async () => {
-    // Mock "getPathSep"
-    jest.resetModules();
+  test("handles files in posix", async () => {
+    // Mock "getPathResolve" and "getPathSep"
     jest.unstable_mockModule("../src/utils", () => {
+      const pathPlatform = path.posix;
       return {
         ...actualUtils,
+        getPathResolve: () => {
+          return (...paths: string[]) => {
+            return pathPlatform.resolve(...paths);
+          };
+        },
         getPathSep: () => {
-          return "/";
+          return pathPlatform.sep;
+        },
+        getEscapedPathSep: () => {
+          return "\\" + pathPlatform.sep;
         },
       };
     });
@@ -19,8 +28,11 @@ describe("remarkTransformGlossaryLink", () => {
 
     // Actual test
     const input = "[My term](./glossary/my-term)";
-    const output = await run(input, { path: "/docs/page.md" });
+    const output = await run(input, { path: "./docs/page.md" });
 
-    expect(output).toBeDefined();
+    expect(output).toMatchInlineSnapshot(`
+"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"
+`);
   });
 });

@@ -31,3 +31,8 @@ export function getPathSep() {
 export function getEscapedPathSep() {
   return "\\" + getPathSep();
 }
+
+// Returns path.resolve(). Layer of indirection to allow mocking.
+export function getPathResolve() {
+  return path.resolve;
+}

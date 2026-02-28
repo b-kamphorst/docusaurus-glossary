@@ -71,7 +71,7 @@ describe("remarkTransformGlossaryLink", () => {
     const input = "[My term](./my-term.md)";
 
     const output = await run(input, {
-      path: "/docs/glossary/my-other-term.md",
+      path: "./docs/glossary/my-other-term.md",
     });
 
     expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
@@ -80,7 +80,7 @@ describe("remarkTransformGlossaryLink", () => {
   test("ignores relative links that do not resolve to glossary/", async () => {
     const input = "[My term](./terms/my-term)";
 
-    const output = await run(input, { path: "/docs/somewhere/page.md" });
+    const output = await run(input, { path: "./docs/somewhere/page.md" });
 
     expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
@@ -96,7 +96,7 @@ describe("remarkTransformGlossaryLink", () => {
   test("ignores relative links that resolve to subdirectories of glossary/", async () => {
     const input = "[My term](./glossary/glossary/my-term)";
 
-    const output = await run(input, { path: "/docs/page.md" });
+    const output = await run(input, { path: "./docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
@@ -112,7 +112,7 @@ describe("remarkTransformGlossaryLink", () => {
   test("transforms relative links that resolve to x-glossary/glossary/", async () => {
     const input = "[My term](./glossary/my-term)";
 
-    const output = await run(input, { path: "/x-glossary/docs/page.md" });
+    const output = await run(input, { path: "./x-glossary/docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
 "<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
@@ -123,7 +123,7 @@ describe("remarkTransformGlossaryLink", () => {
   test("transforms relative links that resolve to glossary-x/glossary/", async () => {
     const input = "[My term](./glossary/my-term)";
 
-    const output = await run(input, { path: "/glossary-x/docs/page.md" });
+    const output = await run(input, { path: "./glossary-x/docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
 "<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>

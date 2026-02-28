@@ -1,17 +1,18 @@
 import type { Link, Root, RootContent } from "mdast";
 import type { MdxJsxTextElement } from "mdast-util-mdx";
-import path from "path";
 import type { Parent } from "unist";
 import { visit, type Visitor } from "unist-util-visit";
 import { VFile } from "vfile";
 import {
   getEscapedPathSep,
+  getPathResolve,
   getPathSep,
   specifyGlossaryPath,
 } from "../../utils.js";
 
 const pathSep = getPathSep();
 const ePathSep = getEscapedPathSep();
+const pathResolve = getPathResolve();
 
 export interface TransformGlossaryLinkOptions {
   glossaryPath?: string; // defaults to "/glossary"
@@ -27,7 +28,7 @@ export default function remarkTransformGlossaryLink(
   options?: TransformGlossaryLinkOptions,
 ) {
   const specifiedGlossaryPath = specifyGlossaryPath(options?.glossaryPath);
-  const prefix = `${specifiedGlossaryPath}${pathSep}`;
+  const prefix = `${specifiedGlossaryPath}${ePathSep}`;
 
   /**
    * Transform links from /<glossaryPath>/:id into:
@@ -39,7 +40,7 @@ export default function remarkTransformGlossaryLink(
 
       var resolvedUrl;
       if (node.url.startsWith(".")) {
-        resolvedUrl = path.resolve(file.cwd, ...node.url.split("/"));
+        resolvedUrl = pathResolve(file.cwd, ...node.url.split("/"));
       } else {
         resolvedUrl = "/" + node.url.split("/").join(pathSep);
       }

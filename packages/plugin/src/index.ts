@@ -3,10 +3,11 @@ import type { LoadContext, Plugin } from "@docusaurus/types";
 import fs from "fs";
 import path from "path";
 import loadTerms, { type LoadTermsResult } from "./load-terms.js";
-import { getPathSep } from "./utils.js";
+import { getPathResolve, getPathSep } from "./utils.js";
 export type { Term } from "./load-terms.js";
 
 const pathsep = getPathSep();
+const pathResolve = getPathResolve();
 
 const suggestedGlossaryIndex = `
 ---
@@ -46,7 +47,7 @@ export default function glossaryPlugin(
   const sanitizedGlossaryPath = glossaryPath
     .replace(/[\\|\/]+/g, pathsep)
     .replace(/^\//, "");
-  const glossaryDir = path.resolve(siteDir, sanitizedGlossaryPath);
+  const glossaryDir = pathResolve(siteDir, sanitizedGlossaryPath);
 
   return {
     name: "docusaurus-plugin-glossary",
@@ -63,8 +64,8 @@ export default function glossaryPlugin(
       // Ensure there is a glossary index
       if (
         !!terms &&
-        !fs.existsSync(path.resolve(glossaryDir, "index.md")) &&
-        !fs.existsSync(path.resolve(glossaryDir, "index.mdx"))
+        !fs.existsSync(pathResolve(glossaryDir, "index.md")) &&
+        !fs.existsSync(pathResolve(glossaryDir, "index.mdx"))
       ) {
         const missingIndexMsg = `Found terms defined in ${glossaryDir}, but that directory does not contain an index.md or index.mdx file. Please create an index. Our suggested index.md:\n\`\`\`${suggestedGlossaryIndex}\`\`\``;
         if (throwOnMissingIndex) {
