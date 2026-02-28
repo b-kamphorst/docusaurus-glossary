@@ -42,7 +42,7 @@ export default function remarkTransformGlossaryLink(
       if (node.url.startsWith(".")) {
         resolvedUrl = pathResolve(file.cwd, ...node.url.split("/"));
       } else {
-        resolvedUrl = "/" + node.url.split("/").join(pathSep);
+        resolvedUrl = pathSep + node.url.split("/").join(pathSep);
       }
 
       // Choice: we only consider links to files directly in <glossaryPath>, not to subdirectories thereof.

@@ -3,7 +3,7 @@ import path from "path";
 import * as actualUtils from "../src/utils";
 
 describe("remarkTransformGlossaryLink", () => {
-  test("handles files in windows", async () => {
+  beforeAll(() => {
     // Mock "getPathResolve" and "getPathSep"
     jest.resetModules();
     jest.unstable_mockModule("../src/utils", () => {
@@ -23,10 +23,24 @@ describe("remarkTransformGlossaryLink", () => {
         },
       };
     });
+  });
 
+  test("handles absolute references in windows", async () => {
     // Load module under test dynamically to activate mock
     const { run } = await import("./remark.transform-glossary-link.utils");
+    // Actual test
+    const input = "[My term](glossary/my-term)";
+    const output = await run(input, { path: ".\\docs\\page.md" });
 
+    expect(output).toMatchInlineSnapshot(`
+"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"
+`);
+  });
+
+  test("handles relative references in windows", async () => {
+    // Load module under test dynamically to activate mock
+    const { run } = await import("./remark.transform-glossary-link.utils");
     // Actual test
     const input = "[My term](./glossary/my-term)";
     const output = await run(input, { path: ".\\docs\\page.md" });
