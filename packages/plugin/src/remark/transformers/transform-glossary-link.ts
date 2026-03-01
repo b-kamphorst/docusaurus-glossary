@@ -7,7 +7,7 @@ import {
   getEscapedPathSep,
   getPathResolve,
   getPathSep,
-  specifyGlossaryPath,
+  specifyPath,
 } from "../../utils.js";
 
 const pathSep = getPathSep();
@@ -15,7 +15,7 @@ const ePathSep = getEscapedPathSep();
 const pathResolve = getPathResolve();
 
 export interface TransformGlossaryLinkOptions {
-  glossaryPath?: string; // defaults to "/glossary"
+  glossaryPath: string; // Path to glossary directory.
 }
 
 /**
@@ -24,10 +24,10 @@ export interface TransformGlossaryLinkOptions {
  */
 // export type GlossaryMap = Record<string, Term>;
 
-export default function remarkTransformGlossaryLink(
-  options?: TransformGlossaryLinkOptions,
+export function remarkTransformGlossaryLink(
+  options: TransformGlossaryLinkOptions,
 ) {
-  const specifiedGlossaryPath = specifyGlossaryPath(options?.glossaryPath);
+  const specifiedGlossaryPath = specifyPath(options.glossaryPath);
   const prefix = `${specifiedGlossaryPath}${ePathSep}`;
 
   /**
@@ -44,7 +44,6 @@ export default function remarkTransformGlossaryLink(
       } else {
         resolvedUrl = pathSep + node.url.split("/").join(pathSep);
       }
-
       // Choice: we only consider links to files directly in <glossaryPath>, not to subdirectories thereof.
       const acceptedLinkRegex = new RegExp(
         `^(?:(?!${ePathSep}${prefix}).)*${ePathSep}${prefix}([^${ePathSep}]+?)(\.mdx?)?$`,

@@ -2,11 +2,17 @@ import remarkMdx from "remark-mdx";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
-import remarkTransformGlossaryLink from "../src/remark/transformers/transform-glossary-link";
+import {
+  remarkTransformGlossaryLink,
+  TransformGlossaryLinkOptions,
+} from "../src/remark/transformers/transform-glossary-link";
 
 export function run(
   md: string,
-  { path = "./docs/page.md", options = {} } = {},
+  {
+    path = "./docs/page.md",
+    options = { glossaryPath: "/glossary" },
+  }: { path?: string; options?: TransformGlossaryLinkOptions } = {},
 ) {
   return unified()
     .use(remarkParse)

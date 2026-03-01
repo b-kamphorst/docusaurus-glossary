@@ -1,18 +1,18 @@
 import { Root } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import { VFile } from "vfile";
-import { getEscapedPathSep, specifyGlossaryPath } from "../../utils";
+import { getEscapedPathSep, specifyPath } from "../../utils";
 
 const ePathSep = getEscapedPathSep();
 
-export interface AppendGlossaryIndexOptions {
-  glossaryPath?: string; // defaults to "/glossary"
+interface AppendGlossaryIndexOptions {
+  glossaryPath: string; // Path to glossary directory.
 }
 
-export default function transformerAppendGlossaryIndexFactory(
-  options: AppendGlossaryIndexOptions = {},
+export function transformerAppendGlossaryIndexFactory(
+  options: AppendGlossaryIndexOptions,
 ) {
-  const glossaryPath = specifyGlossaryPath(options.glossaryPath);
+  const glossaryPath = specifyPath(options.glossaryPath);
 
   /**
    * Appends <GlossaryIndex /> to <glossaryPath>/index.md(x).

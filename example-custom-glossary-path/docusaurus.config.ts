@@ -2,6 +2,9 @@ import { remarkGlossary } from "@b-kamphorst/docusaurus-plugin-glossary/remark";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 
+const docsPath = "/docs";
+const glossaryPath = "/glossary-2";
+
 const config: Config = {
   title: "Example Site",
   tagline: "Dinosaurs are cool",
@@ -17,7 +20,12 @@ const config: Config = {
   onBrokenLinks: "throw",
   markdown: { hooks: { onBrokenMarkdownLinks: "throw" } },
 
-  plugins: ["@b-kamphorst/docusaurus-plugin-glossary"],
+  plugins: [
+    [
+      "@b-kamphorst/docusaurus-plugin-glossary",
+      { path: `${docsPath}${glossaryPath}` },
+    ],
+  ],
   themes: ["@b-kamphorst/docusaurus-theme-glossary"],
 
   presets: [
@@ -27,7 +35,7 @@ const config: Config = {
         docs: {
           path: "docs",
           routeBasePath: "/",
-          remarkPlugins: [remarkGlossary],
+          remarkPlugins: [[remarkGlossary, { glossaryPath: glossaryPath }]],
         },
       } satisfies Preset.Options,
     ],

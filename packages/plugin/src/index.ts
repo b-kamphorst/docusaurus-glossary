@@ -6,7 +6,7 @@ import loadTerms, { type LoadTermsResult } from "./load-terms.js";
 import { getPathResolve, getPathSep } from "./utils.js";
 export type { Term } from "./load-terms.js";
 
-const pathsep = getPathSep();
+const pathSep = getPathSep();
 const pathResolve = getPathResolve();
 
 const suggestedGlossaryIndex = `
@@ -32,20 +32,20 @@ export interface GlossaryPluginOptions {
   /**
    * Throw a build-time error if there exists no glossary index page.
    * If "false", display a build-time warning instead.
-   * Defaults to "true".
+   * Defaults to "false".
    */
   throwOnMissingIndex?: boolean;
 }
 
 export default function glossaryPlugin(
   context: LoadContext,
-  options: GlossaryPluginOptions,
+  options?: GlossaryPluginOptions,
 ): Plugin<LoadTermsResult> {
   const { siteDir } = context;
-  const throwOnMissingIndex = options.throwOnMissingIndex ?? true;
-  const glossaryPath = options.path ?? path.join("docs", "glossary");
+  const throwOnMissingIndex = options?.throwOnMissingIndex ?? false;
+  const glossaryPath = options?.path ?? path.join("docs", "glossary");
   const sanitizedGlossaryPath = glossaryPath
-    .replace(/[\\|\/]+/g, pathsep)
+    .replace(/[\\|\/]+/g, pathSep)
     .replace(/^\//, "");
   const glossaryDir = pathResolve(siteDir, sanitizedGlossaryPath);
 

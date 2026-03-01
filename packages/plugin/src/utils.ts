@@ -1,25 +1,21 @@
 import path from "path";
-import { DEFAULT_GLOSSARY_PATH } from "./constants";
 
-const pathsep = getPathSep();
+const pathSep = getPathSep();
+const ePathSep = getEscapedPathSep();
 
 /**
- * Turn the configured glossaryPath into a platform-specific file path.
- * E.g. on windows, the glossaryPath "/my/glossary" becomes "\my\glossary".
+ * Turn the provided path into a platform-specific file path.
+ * E.g. on windows, the path "/my/glossary" becomes "my\glossary".
  * Leading and trailing slashes are removed.
- * @param glossaryPath
+ * @param p
  * @returns
  */
-export function specifyGlossaryPath(glossaryPath: string | undefined): string {
-  return (glossaryPath ?? DEFAULT_GLOSSARY_PATH)
-    .replace(/^[\/\\]|[\/\\]$/, "")
-    .replace(/\/|\\/g, pathsep);
+export function specifyPath(p: string): string {
+  return p.replace(/^[\/\\]|[\/\\]$/, "").replace(/\/|\\/g, ePathSep);
 }
 
-export function normalizeGlossaryPath(
-  glossaryPath: string | undefined,
-): string {
-  return specifyGlossaryPath(glossaryPath).replaceAll(pathsep, "/");
+export function normalizePath(glossaryPath: string): string {
+  return specifyPath(glossaryPath).replaceAll(pathSep, "/");
 }
 
 // Returns path.sep. Layer of indirection to allow mocking.

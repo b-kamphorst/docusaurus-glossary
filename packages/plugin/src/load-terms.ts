@@ -1,7 +1,8 @@
+import { logger } from "@docusaurus/logger";
 import fm from "front-matter";
 import fs from "fs";
 import path from "path";
-import { normalizeGlossaryPath } from "./utils";
+import { normalizePath } from "./utils";
 
 interface TermFrontmatter {
   /** If absent, we fall back to filename (without .md / .mdx) */
@@ -24,8 +25,11 @@ export interface LoadTermsResult {
 }
 
 export default function loadTerms(dir: string): LoadTermsResult {
+  if (!fs.existsSync(dir)) {
+    logger.warn(`Failed to find configured glossary directory '${dir}'`);
+    return { terms: [] };
+  }
   const files = fs.readdirSync(dir);
-
   const terms: Term[] = files
     .filter((f) => /\.mdx?$/.test(f) && !/^index\./.test(f))
     .map((f) => {
@@ -34,7 +38,7 @@ export default function loadTerms(dir: string): LoadTermsResult {
       const { attributes, body } = fm<TermFrontmatter>(source);
 
       return {
-        path: normalizeGlossaryPath(f).replace(/\.mdx?/, ""),
+        path: normalizePath(f).replace(/\.mdx?/, ""),
         title: attributes.title,
         hoverText: attributes.hoverText || "",
         description: body.trim(),
