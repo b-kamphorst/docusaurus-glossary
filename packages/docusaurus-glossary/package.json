@@ -1,7 +1,7 @@
 {
-  "name": "@b-kamphorst/docusaurus-plugin-glossary",
+  "name": "@b-kamphorst/docusaurus-glossary",
   "version": "0.1.0",
-  "description": "Docusaurus plugin to generate a glossary from markdown files ('terms'). All references to terms are transformed into tooltips that display short descriptions on hover.",
+  "description": "Docusaurus plugin and theme to generate and render a glossary from markdown files ('terms'). All references to terms are transformed into tooltips that display short descriptions on hover.",
   "type": "module",
   "exports": {
     ".": {
@@ -10,9 +10,9 @@
       "types": "./dist/index.d.ts"
     },
     "./remark": {
-      "import": "./dist/remark/index.js",
-      "require": "./dist/remark/index.js",
-      "types": "./dist/remark/index.d.ts"
+      "import": "./dist/plugin-remark/index.js",
+      "require": "./dist/plugin-remark/index.js",
+      "types": "./dist/plugin-remark/index.d.ts"
     }
   },
   "files": [
@@ -26,6 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "front-matter": "^4.0.2",
+    "react-tooltip": "^5.30.0",
     "unist-util-visit": "^5.1.0"
   },
   "peerDependencies": {

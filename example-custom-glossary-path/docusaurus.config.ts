@@ -1,4 +1,4 @@
-import { remarkGlossary } from "@b-kamphorst/docusaurus-plugin-glossary/remark";
+import { remarkGlossary } from "@b-kamphorst/docusaurus-glossary/remark";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 
@@ -22,11 +22,10 @@ const config: Config = {
 
   plugins: [
     [
-      "@b-kamphorst/docusaurus-plugin-glossary",
+      "@b-kamphorst/docusaurus-glossary",
       { path: `${docsPath}${glossaryPath}` },
     ],
   ],
-  themes: ["@b-kamphorst/docusaurus-theme-glossary"],
 
   presets: [
     [

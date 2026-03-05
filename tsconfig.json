@@ -13,9 +13,8 @@
   },
   "files": [],
   "references": [
-    { "path": "example" },
-    { "path": "example-custom-glossary-path" },
-    { "path": "packages/plugin" },
-    { "path": "packages/theme" }
+    { "path": "./packages/docusaurus-glossary" },
+    { "path": "./example" },
+    { "path": "./example-custom-glossary-path" }
   ]
 }

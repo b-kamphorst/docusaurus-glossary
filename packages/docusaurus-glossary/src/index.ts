@@ -2,9 +2,12 @@ import { logger } from "@docusaurus/logger";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import fs from "fs";
 import path from "path";
-import loadTerms, { type LoadTermsResult } from "./load-terms.js";
+import loadTerms, {
+  type LoadTermsResult,
+} from "./plugin-docusaurus/load-terms";
 import { getPathResolve, getPathSep } from "./utils.js";
-export type { Term } from "./load-terms.js";
+
+export type { Term } from "./plugin-docusaurus/load-terms.js";
 
 const pathSep = getPathSep();
 const pathResolve = getPathResolve();
@@ -51,6 +54,10 @@ export default function glossaryPlugin(
 
   return {
     name: "docusaurus-plugin-glossary",
+
+    getThemePath() {
+      return path.resolve(__dirname, "theme");
+    },
 
     loadContent() {
       return loadTerms(glossaryDir);

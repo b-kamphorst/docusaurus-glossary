@@ -8,7 +8,8 @@
     "example"
   ],
   "scripts": {
-    "build": "tsc -b packages/plugin packages/theme",
+    "build": "tsc -b packages/docusaurus-glossary",
+    "prepare": "npm run build",
     "clean": "rimraf ./packages/**/dist ./packages/**/tsconfig.tsbuildinfo ./example/.docusaurus",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",

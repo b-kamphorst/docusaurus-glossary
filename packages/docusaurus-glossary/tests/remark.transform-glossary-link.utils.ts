@@ -5,7 +5,7 @@ import { unified } from "unified";
 import {
   remarkTransformGlossaryLink,
   TransformGlossaryLinkOptions,
-} from "../src/remark/transformers/transform-glossary-link";
+} from "../src/plugin-remark/transformers/transform-glossary-link";
 
 export function run(
   md: string,

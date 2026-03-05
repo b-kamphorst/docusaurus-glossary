@@ -1,4 +1,4 @@
-import { remarkGlossary } from "@b-kamphorst/docusaurus-plugin-glossary/remark";
+import { remarkGlossary } from "@b-kamphorst/docusaurus-glossary/remark";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 
@@ -17,8 +17,7 @@ const config: Config = {
   onBrokenLinks: "throw",
   markdown: { hooks: { onBrokenMarkdownLinks: "throw" } },
 
-  plugins: ["@b-kamphorst/docusaurus-plugin-glossary"],
-  themes: ["@b-kamphorst/docusaurus-theme-glossary"],
+  plugins: ["@b-kamphorst/docusaurus-glossary"],
 
   presets: [
     [

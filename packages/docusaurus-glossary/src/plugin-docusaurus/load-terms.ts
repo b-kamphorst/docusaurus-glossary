@@ -2,7 +2,7 @@ import { logger } from "@docusaurus/logger";
 import fm from "front-matter";
 import fs from "fs";
 import path from "path";
-import { normalizePath } from "./utils";
+import { normalizePath } from "../utils";
 
 interface TermFrontmatter {
   /** If absent, we fall back to filename (without .md / .mdx) */

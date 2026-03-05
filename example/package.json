@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -15,8 +15,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@b-kamphorst/docusaurus-plugin-glossary": "^0.1.0",
-    "@b-kamphorst/docusaurus-theme-glossary": "^0.1.0",
+    "@b-kamphorst/docusaurus-glossary": "*",
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@mdx-js/react": "^3.0.0",

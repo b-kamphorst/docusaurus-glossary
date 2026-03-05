@@ -35,9 +35,9 @@ export default [
     languageOptions: {
       parserOptions: {
         project: [
-          path.join(__dirname, "packages/plugin/tsconfig.json"),
-          path.join(__dirname, "packages/theme/tsconfig.json"),
+          path.join(__dirname, "packages/docusaurus-glossary/tsconfig.json"),
           path.join(__dirname, "example/tsconfig.json"),
+          path.join(__dirname, "example-custom-glossary-path/tsconfig.json"),
         ],
         tsconfigRootDir: __dirname,
         sourceType: "module",

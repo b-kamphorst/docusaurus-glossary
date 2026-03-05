@@ -1,4 +1,4 @@
-import loadTerms from "../src/load-terms.js";
+import loadTerms from "../src/plugin-docusaurus/load-terms.js";
 import {
   copyFixtureDir,
   createTempWorkspace,
