@@ -1,6 +1,6 @@
 import { usePluginData } from "@docusaurus/useGlobalData";
 import React from "react";
-import type { Term } from "../";
+import type { Term } from "..";
 import { TOOLTIP_ID } from "../constants.js";
 
 interface GlossaryTooltipProps {

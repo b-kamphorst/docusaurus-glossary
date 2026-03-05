@@ -1,5 +1,4 @@
-import { remarkGlossary } from "@b-kamphorst/docusaurus-glossary/remark";
-import type * as Preset from "@docusaurus/preset-classic";
+import { remarkGlossary } from "@b-kamphorst/docusaurus-glossary";
 import type { Config } from "@docusaurus/types";
 
 const config: Config = {
@@ -28,7 +27,7 @@ const config: Config = {
           routeBasePath: "/",
           remarkPlugins: [remarkGlossary],
         },
-      } satisfies Preset.Options,
+      },
     ],
   ],
 
@@ -41,7 +40,7 @@ const config: Config = {
       style: "dark",
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
-  } satisfies Preset.ThemeConfig,
+  },
 };
 
 export default config;

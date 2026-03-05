@@ -3,24 +3,18 @@
   "version": "0.1.0",
   "description": "Docusaurus plugin and theme to generate and render a glossary from markdown files ('terms'). All references to terms are transformed into tooltips that display short descriptions on hover.",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./remark": {
-      "import": "./dist/plugin-remark/index.js",
-      "require": "./dist/plugin-remark/index.js",
-      "types": "./dist/plugin-remark/index.d.ts"
-    }
-  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "keywords": [
     "docusaurus",
-    "glossary"
+    "definitions",
+    "dictionary",
+    "glossary",
+    "terminology",
+    "terms"
   ],
   "author": "Bart Kamphorst",
   "license": "MIT",

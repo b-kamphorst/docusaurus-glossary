@@ -4,21 +4,21 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*",
-    "example"
+    "package/*",
+    "examples/*"
   ],
   "scripts": {
-    "build": "tsc -b packages/docusaurus-glossary",
+    "build": "tsc -b package/docusaurus-glossary",
     "prepare": "npm run build",
-    "clean": "rimraf ./packages/**/dist ./packages/**/tsconfig.tsbuildinfo ./example/.docusaurus",
+    "clean": "rimraf ./package/**/dist ./package/**/tsconfig.tsbuildinfo ./examples/**/.docusaurus",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "validate": "npm run typecheck && npm run lint",
-    "example:build": "cd example && npm run build",
-    "example:start": "cd example && npm start",
-    "example2:build": "cd example-custom-glossary-path && npm run build",
-    "example2:start": "cd example-custom-glossary-path && npm start"
+    "example:build": "cd examples/simple && npm run build",
+    "example:start": "cd examples/simple && npm start",
+    "example2:build": "cd examples/custom-glossary-path && npm run build",
+    "example2:start": "cd examples/custom-glossary-path && npm start"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",

@@ -2,7 +2,7 @@
 import type { Config } from "jest";
 
 const config: Config = {
-  roots: ["<rootDir>/example", "<rootDir>/packages"],
+  roots: ["<rootDir>/examples", "<rootDir>/package"],
   testEnvironment: "node",
   extensionsToTreatAsEsm: [".ts", ".tsx"],
   moduleFileExtensions: ["ts", "tsx", "js", "mjs", "cjs", "json"],

@@ -1,0 +1,4 @@
+{
+  "extends": "../tsconfig.json",
+  "references": ["./custom-glossary-path", "./simple"]
+}

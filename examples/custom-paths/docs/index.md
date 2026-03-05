@@ -1,5 +1,6 @@
 ---
-title: Example
+title: Welcome!
+sidebar_position: 1
 ---
 
 Refer to [my term](glossary-2/my-term.md) absolutely.

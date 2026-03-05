@@ -8,6 +8,7 @@ import loadTerms, {
 import { getPathResolve, getPathSep } from "./utils.js";
 
 export type { Term } from "./plugin-docusaurus/load-terms.js";
+export { remarkGlossary } from "./plugin-remark";
 
 const pathSep = getPathSep();
 const pathResolve = getPathResolve();
@@ -26,8 +27,8 @@ This glossary collects all our terms with a short description in a single overvi
  */
 export interface GlossaryPluginOptions {
   /**
-   * Relative path (from siteDir) to the glossary directory.
-   * The glossary directory should be in the docs routeBasePath.
+   * Path to the glossary directory relative to `siteDir`.
+   * The glossary directory should be in the `docs.routeBasePath`.
    * Defaults to "docs/glossary".
    */
   path?: string;

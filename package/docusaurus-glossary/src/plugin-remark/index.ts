@@ -5,7 +5,10 @@ import { transformerAppendGlossaryIndexFactory } from "./transformers/append-glo
 import { remarkTransformGlossaryLink } from "./transformers/transform-glossary-link";
 
 export interface RemarkGlossaryOptions {
-  glossaryPath?: string; // Path to glossary directory. Defaults to "/glossary".
+  /**
+   * Path to glossary directory relative to docs.path. Defaults to "/glossary".
+   */
+  glossaryPath?: string;
 }
 
 export const remarkGlossary: Plugin<[RemarkGlossaryOptions], Root> = (

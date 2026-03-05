@@ -1,6 +1,6 @@
 import Link from "@docusaurus/Link";
 import { usePluginData } from "@docusaurus/useGlobalData";
-import type { Term } from "../";
+import type { Term } from "..";
 
 export default function GlossaryIndex() {
   const sortedTerms = getTerms();

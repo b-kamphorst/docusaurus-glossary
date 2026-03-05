@@ -13,8 +13,7 @@
   },
   "files": [],
   "references": [
-    { "path": "./packages/docusaurus-glossary" },
-    { "path": "./example" },
-    { "path": "./example-custom-glossary-path" }
+    { "path": "./package/docusaurus-glossary" },
+    { "path": "./examples" }
   ]
 }

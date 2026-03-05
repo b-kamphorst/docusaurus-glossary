@@ -30,14 +30,14 @@ export default [
   },
 
   {
-    files: ["example/**/*.tsx", "packages/**/*.tsx"],
+    files: ["examples/**/*.tsx", "package/**/*.tsx"],
 
     languageOptions: {
       parserOptions: {
         project: [
-          path.join(__dirname, "packages/docusaurus-glossary/tsconfig.json"),
-          path.join(__dirname, "example/tsconfig.json"),
-          path.join(__dirname, "example-custom-glossary-path/tsconfig.json"),
+          path.join(__dirname, "package/docusaurus-glossary/tsconfig.json"),
+          path.join(__dirname, "examples/tsconfig.json"),
+          path.join(__dirname, "examples-custom-glossary-path/tsconfig.json"),
         ],
         tsconfigRootDir: __dirname,
         sourceType: "module",
