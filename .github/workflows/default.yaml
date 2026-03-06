@@ -137,4 +137,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish -w "${WORKSPACE_PATH}"
+          npm publish -w "${WORKSPACE_PATH}" --access=public
