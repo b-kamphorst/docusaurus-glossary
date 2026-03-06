@@ -4,7 +4,7 @@ A Docusaurus plugin and theme for creating a glossary of terms from Markdown fil
 
 This project provides a plugin plus accompanying theme that let you define terms in Markdown, automatically process references to those terms, and generate a structured glossary page in your Docusaurus site. It makes it easier for readers to discover and understand important terminology in your documentation.
 
-![Demo of resulting glossary and tooltips](https://github.com/b-kamphorst/docusaurus-glossary/raw/refs/heads/main/static/demo.gif)
+![Demo of resulting glossary and tooltips](https://github.com/b-kamphorst/docusaurus-glossary/raw/refs/tags/v0.1.0/static/demo.gif)
 
 ## 🚀 Features
 
