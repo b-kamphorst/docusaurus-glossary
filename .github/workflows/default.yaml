@@ -3,7 +3,7 @@ name: Lint and test
 on:
   push:
     branches: [main]
-    tags: ["*"]
+    tags: ["v*"]
 
   pull_request:
     branches: [main]
@@ -60,9 +60,7 @@ jobs:
 
   check_tag:
     runs-on: ubuntu-latest
-    if: |
-      github.ref_type == 'tag' &&
-      startsWith(github.ref, 'refs/tags/v')
+    if: github.ref_type == 'tag'
     outputs:
       is_semver_tag: ${{ steps.semver.outputs.is_semver_tag }}
       version: ${{ steps.semver.outputs.version }}
@@ -88,6 +86,7 @@ jobs:
 
     permissions:
       contents: read
+      id-token: write
 
     env:
       # Enable provenance (if supported by your npm org; otherwise it’s harmless)
@@ -134,7 +133,5 @@ jobs:
           fi
 
       - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish -w "${WORKSPACE_PATH}" --access=public
+          npm publish -w "${WORKSPACE_PATH}"
