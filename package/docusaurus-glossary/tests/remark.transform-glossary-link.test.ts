@@ -7,7 +7,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -18,7 +20,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -29,7 +33,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -40,7 +46,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -51,7 +59,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -62,7 +72,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -74,7 +86,12 @@ describe("remarkTransformGlossaryLink", () => {
       path: "./docs/glossary/my-other-term.md",
     });
 
-    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
+    expect(output).toMatchInlineSnapshot(`
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+${input}
+"
+`);
   });
 
   test("ignores relative links that do not resolve to glossary/", async () => {
@@ -82,7 +99,12 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input, { path: "./docs/somewhere/page.md" });
 
-    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
+    expect(output).toMatchInlineSnapshot(`
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+${input}
+"
+`);
   });
 
   test("ignores absolute links to non-glossary routes", async () => {
@@ -90,7 +112,12 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input);
 
-    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
+    expect(output).toMatchInlineSnapshot(`
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+${input}
+"
+`);
   });
 
   test("ignores relative links that resolve to subdirectories of glossary/", async () => {
@@ -98,7 +125,12 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input, { path: "./docs/page.md" });
 
-    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
+    expect(output).toMatchInlineSnapshot(`
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+${input}
+"
+`);
   });
 
   test("ignores absolute links that resolve to subdirectories of glossary/", async () => {
@@ -106,7 +138,12 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input);
 
-    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
+    expect(output).toMatchInlineSnapshot(`
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+${input}
+"
+`);
   });
 
   test("transforms relative links that resolve to x-glossary/glossary/", async () => {
@@ -115,7 +152,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input, { path: "./x-glossary/docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -126,7 +165,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input, { path: "./glossary-x/docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -137,7 +178,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input, { options: { glossaryPath: "/terms" } });
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
