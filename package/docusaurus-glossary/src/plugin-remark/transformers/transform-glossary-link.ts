@@ -1,3 +1,4 @@
+import AST from "abstract-syntax-tree";
 import type { Link, Root, RootContent } from "mdast";
 import type { MdxJsxTextElement } from "mdast-util-mdx";
 import type { Parent } from "unist";
@@ -56,6 +57,17 @@ export function remarkTransformGlossaryLink(
       (parent as Parent & { children: RootContent[] }).children[index] =
         tooltipNode as unknown as RootContent;
     };
+
+    // import GlossaryTooltip component
+    const GlossaryTooltipImportStatement =
+      "import GlossaryTooltip from '@theme/GlossaryTooltip';";
+    tree.children.unshift({
+      type: "mdxjsEsm",
+      value: GlossaryTooltipImportStatement,
+      data: {
+        estree: AST.parse(GlossaryTooltipImportStatement),
+      },
+    });
 
     visit(tree, "link", visitor);
   };

@@ -1,3 +1,4 @@
+import AST from "abstract-syntax-tree";
 import { Root } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx";
 import { VFile } from "vfile";
@@ -28,6 +29,17 @@ export function transformerAppendGlossaryIndexFactory(
     if (!isGlossaryIndex) {
       return;
     }
+
+    // import GlossaryIndex component
+    const GlossaryIndexImportStatement =
+      "import GlossaryIndex from '@theme/GlossaryTooltip';";
+    tree.children.unshift({
+      type: "mdxjsEsm",
+      value: GlossaryIndexImportStatement,
+      data: {
+        estree: AST.parse(GlossaryIndexImportStatement),
+      },
+    });
 
     const glossaryIndexNode = buildGlossaryTooltipNode();
     tree.children.push(glossaryIndexNode);
