@@ -14,6 +14,7 @@ interface TermFrontmatter {
 }
 
 export interface Term {
+  id: string;
   path: string;
   title: string;
   hoverText: string;
@@ -37,8 +38,10 @@ export default function loadTerms(dir: string): LoadTermsResult {
       const source = fs.readFileSync(fullPath, "utf-8");
       const { attributes, body } = fm<TermFrontmatter>(source);
 
+      const normalizedPath = normalizePath(f).replace(/\.mdx?/, "");
       return {
-        path: normalizePath(f).replace(/\.mdx?/, ""),
+        id: attributes.id || normalizedPath,
+        path: normalizedPath,
         title: attributes.title,
         hoverText: attributes.hoverText || "",
         description: body.trim(),

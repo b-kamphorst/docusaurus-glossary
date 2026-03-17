@@ -7,7 +7,7 @@ export default function GlossaryIndex() {
   return sortedTerms.map((t) => (
     <ul>
       <li>
-        <Link to={t.path}>
+        <Link to={t.id}>
           <b>{t.title}:</b>
         </Link>
         &nbsp;{t.hoverText}
