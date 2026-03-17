@@ -32,7 +32,7 @@ export function transformerAppendGlossaryIndexFactory(
 
     // import GlossaryIndex component
     const GlossaryIndexImportStatement =
-      "import GlossaryIndex from '@theme/GlossaryTooltip';";
+      "import GlossaryIndex from '@theme/GlossaryIndex';";
     tree.children.unshift({
       type: "mdxjsEsm",
       value: GlossaryIndexImportStatement,
