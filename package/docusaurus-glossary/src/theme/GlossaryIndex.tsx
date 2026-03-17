@@ -10,7 +10,7 @@ export default function GlossaryIndex() {
         <Link to={t.path}>
           <b>{t.title}:</b>
         </Link>
-        &nbsp; {t.hoverText}
+        &nbsp;{t.hoverText}
       </li>
     </ul>
   ));
