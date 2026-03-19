@@ -14,10 +14,10 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "validate": "npm run typecheck && npm run lint",
-    "example:build": "cd examples/simple && npm run build",
-    "example:start": "cd examples/simple && npm start",
-    "example2:build": "cd examples/custom-glossary-path && npm run build",
-    "example2:start": "cd examples/custom-glossary-path && npm start"
+    "example-simple:build": "cd examples/simple && npm run build",
+    "example-simple:start": "cd examples/simple && npm start",
+    "example-custom-paths:build": "cd examples/custom-paths && npm run build",
+    "example-custom-paths:start": "cd examples/custom-paths && npm start"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",
