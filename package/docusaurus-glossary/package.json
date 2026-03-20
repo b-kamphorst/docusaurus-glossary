@@ -1,6 +1,6 @@
 {
   "name": "@b-kamphorst/docusaurus-glossary",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Docusaurus plugin and theme to generate and render a glossary from markdown files ('terms'). All references to terms are transformed into tooltips that display short descriptions on hover.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
