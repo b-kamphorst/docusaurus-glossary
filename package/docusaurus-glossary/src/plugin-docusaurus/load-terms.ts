@@ -14,7 +14,20 @@ interface TermFrontmatter {
 }
 
 export interface Term {
+  /**
+   * The file path (without extension) of the term file.
+   * Used as the primary identifier for lookups because the remark
+   * transformer can only extract filenames from markdown links.
+   * Fallback for routing if id is not provided.
+   */
   path: string;
+
+  /**
+   * Optional custom identifier from frontmatter (id field).
+   * Used for routing.
+   */
+  id?: string;
+
   title: string;
   hoverText: string;
   description: string;
@@ -39,6 +52,7 @@ export default function loadTerms(dir: string): LoadTermsResult {
 
       return {
         path: normalizePath(f).replace(/\.mdx?/, ""),
+        id: attributes.id,
         title: attributes.title,
         hoverText: attributes.hoverText || "",
         description: body.trim(),

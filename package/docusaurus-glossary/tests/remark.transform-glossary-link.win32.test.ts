@@ -33,7 +33,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input, { path: ".\\docs\\page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -46,7 +48,9 @@ describe("remarkTransformGlossaryLink", () => {
     const output = await run(input, { path: ".\\docs\\page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
+"import GlossaryTooltip from '@theme/GlossaryTooltip';
+
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });

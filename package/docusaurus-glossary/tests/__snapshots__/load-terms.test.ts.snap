@@ -5,20 +5,30 @@ exports[`loadTerms() parses terms and index file from fixture directory 1`] = `
   {
     "description": "Bar is the counterpart to Foo. See [Foo](/glossary/foo).",
     "hoverText": "My bar term.",
+    "id": "bar",
     "path": "bar",
     "title": "Bar",
   },
   {
     "description": "Foo refers to something placeholder-like. See also [bar](/glossary/bar).",
     "hoverText": "My foo term.",
+    "id": "foo",
     "path": "foo",
     "title": "Foo",
   },
   {
     "description": "Slugifying is needed here...",
     "hoverText": "Some term without id.",
+    "id": undefined,
     "path": "slug me",
     "title": "Subterm",
+  },
+  {
+    "description": "Custom IDs should be respected.",
+    "hoverText": "Some term without id.",
+    "id": "different",
+    "path": "with-id",
+    "title": "My id is different",
   },
 ]
 `;

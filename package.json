@@ -1,8 +1,7 @@
 {
   "name": "@b-kamphorst/docusaurus-glossary-workspace",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
-  "type": "module",
   "workspaces": [
     "package/*",
     "examples/*"
@@ -10,15 +9,15 @@
   "scripts": {
     "build": "tsc -b package/docusaurus-glossary",
     "prepare": "npm run build",
-    "clean": "rimraf ./package/**/dist ./package/**/tsconfig.tsbuildinfo ./examples/**/.docusaurus",
+    "clear": "rimraf ./package/**/dist ./package/**/tsconfig.tsbuildinfo ./examples/**/.docusaurus",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "validate": "npm run typecheck && npm run lint",
-    "example:build": "cd examples/simple && npm run build",
-    "example:start": "cd examples/simple && npm start",
-    "example2:build": "cd examples/custom-glossary-path && npm run build",
-    "example2:start": "cd examples/custom-glossary-path && npm start"
+    "example-simple:build": "cd examples/simple && npm run build",
+    "example-simple:start": "cd examples/simple && npm start",
+    "example-custom-paths:build": "cd examples/custom-paths && npm run build",
+    "example-custom-paths:start": "cd examples/custom-paths && npm start"
   },
   "devDependencies": {
     "@docusaurus/core": "^3.9.2",
@@ -26,6 +25,7 @@
     "@eslint/js": "^9.39.3",
     "@swc/core": "^1.15.11",
     "@swc/jest": "^0.2.39",
+    "@types/estree": "^1.0.8",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
