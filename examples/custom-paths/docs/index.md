@@ -5,7 +5,7 @@ sidebar_position: 1
 
 Refer to [my term](glossary-2/my-term.md) absolutely.
 
-Refer to [my other term](./glossary-2/my-other-term) relatively.
+Refer to [my other term](./glossary-2/my-other-term.md) relatively.
 
 :::info
 Docusaurus [recommends](https://docusaurus.io/docs/markdown-features/links) to use relative file paths (with extension) as by Docusaurus itself:

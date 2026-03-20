@@ -89,7 +89,7 @@ describe("remarkTransformGlossaryLink", () => {
     expect(output).toMatchInlineSnapshot(`
 "import GlossaryTooltip from '@theme/GlossaryTooltip';
 
-${input}
+<GlossaryTooltip termId="my-term">${input}</GlossaryTooltip>
 "
 `);
   });
@@ -100,9 +100,7 @@ ${input}
     const output = await run(input, { path: "./docs/somewhere/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"import GlossaryTooltip from '@theme/GlossaryTooltip';
-
-${input}
+"${input}
 "
 `);
   });
@@ -113,9 +111,7 @@ ${input}
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"import GlossaryTooltip from '@theme/GlossaryTooltip';
-
-${input}
+"${input}
 "
 `);
   });
@@ -126,9 +122,7 @@ ${input}
     const output = await run(input, { path: "./docs/page.md" });
 
     expect(output).toMatchInlineSnapshot(`
-"import GlossaryTooltip from '@theme/GlossaryTooltip';
-
-${input}
+"${input}
 "
 `);
   });
@@ -139,9 +133,7 @@ ${input}
     const output = await run(input);
 
     expect(output).toMatchInlineSnapshot(`
-"import GlossaryTooltip from '@theme/GlossaryTooltip';
-
-${input}
+"${input}
 "
 `);
   });

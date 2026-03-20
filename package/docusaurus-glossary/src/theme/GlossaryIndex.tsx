@@ -1,29 +1,25 @@
 import Link from "@docusaurus/Link";
 import { usePluginData } from "@docusaurus/useGlobalData";
+import { useMemo } from "react";
 import type { Term } from "..";
 
 export default function GlossaryIndex() {
-  const sortedTerms = getTerms();
-  return sortedTerms.map((t) => (
+  const terms: Term[] =
+    usePluginData<Term[]>("docusaurus-plugin-glossary") || [];
+  const sortedTerms = useMemo(
+    () => [...terms].sort((a, b) => a.title.localeCompare(b.title)),
+    [terms],
+  );
+  return (
     <ul>
-      <li>
-        <Link to={t.id}>
-          <b>{t.title}:</b>
-        </Link>
-        &nbsp;{t.hoverText}
-      </li>
+      {sortedTerms.map((t) => (
+        <li key={t.id || t.path}>
+          <Link to={t.id || t.path}>
+            <b>{t.title}:</b>
+          </Link>
+          &nbsp;{t.hoverText}
+        </li>
+      ))}
     </ul>
-  ));
-}
-
-// Module-level cache
-let sortedTerms: Term[] | null = null;
-
-function getTerms(): Term[] {
-  if (!sortedTerms) {
-    const terms: Term[] =
-      usePluginData<Term[]>("docusaurus-plugin-glossary") || [];
-    sortedTerms = [...terms].sort((a, b) => a.title.localeCompare(b.title));
-  }
-  return sortedTerms;
+  );
 }

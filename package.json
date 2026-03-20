@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc -b package/docusaurus-glossary",
     "prepare": "npm run build",
-    "clean": "rimraf ./package/**/dist ./package/**/tsconfig.tsbuildinfo ./examples/**/.docusaurus",
+    "clear": "rimraf ./package/**/dist ./package/**/tsconfig.tsbuildinfo ./examples/**/.docusaurus",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",

@@ -1,5 +1,5 @@
 import { usePluginData } from "@docusaurus/useGlobalData";
-import React from "react";
+import React, { useMemo } from "react";
 import type { Term } from "..";
 import { TOOLTIP_ID } from "../constants.js";
 
@@ -12,7 +12,20 @@ export default function GlossaryTooltip({
   termId,
   children,
 }: GlossaryTooltipProps) {
-  const termMap = getTermMap();
+  const terms: Term[] =
+    usePluginData<Term[]>("docusaurus-plugin-glossary") || [];
+  // Support lookup by both filename-derived path and optional frontmatter id.
+  // This lets tooltip resolution work for links expressed with either key.
+  const termMap = useMemo(() => {
+    const map: Record<string, Term> = {};
+    for (const t of terms) {
+      map[t.path] = t;
+      if (t.id) {
+        map[t.id] = t;
+      }
+    }
+    return map;
+  }, [terms]);
   const term = termMap[termId];
   if (!term) {
     console.warn(`Glossary term '${termId}' is not recognized.`);
@@ -25,16 +38,4 @@ export default function GlossaryTooltip({
       {children}
     </span>
   );
-}
-
-// Module-level cache
-let termMap: Record<string, Term> | null = null;
-
-function getTermMap(): Record<string, Term> {
-  if (!termMap) {
-    const terms: Term[] =
-      usePluginData<Term[]>("docusaurus-plugin-glossary") || [];
-    termMap = Object.fromEntries(terms.map((t) => [t.path, t]));
-  }
-  return termMap;
 }

@@ -6,7 +6,7 @@ import { getEscapedPathSep, specifyPath } from "../../utils";
 
 const ePathSep = getEscapedPathSep();
 
-interface AppendGlossaryIndexOptions {
+export interface AppendGlossaryIndexOptions {
   glossaryPath: string; // Path to glossary directory.
 }
 
@@ -41,7 +41,7 @@ export function transformerAppendGlossaryIndexFactory(
       },
     });
 
-    const glossaryIndexNode = buildGlossaryTooltipNode();
+    const glossaryIndexNode = buildGlossaryIndexNode();
     tree.children.push(glossaryIndexNode);
   }
 
@@ -51,7 +51,7 @@ export function transformerAppendGlossaryIndexFactory(
 /**
  * Build a MDX <GlossaryIndex> node.
  */
-function buildGlossaryTooltipNode(): MdxJsxFlowElement {
+function buildGlossaryIndexNode(): MdxJsxFlowElement {
   return {
     type: "mdxJsxFlowElement",
     name: "GlossaryIndex",

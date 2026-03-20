@@ -34,14 +34,23 @@ export function remarkTransformGlossaryLink(
   /**
    * Transform links from /<glossaryPath>/:id into:
    *   <GlossaryTooltip termId=":id">...children...</GlossaryTooltip>
+   *
+   * The import for GlossaryTooltip is only injected when at least one link
+   * is actually transformed, so files with no glossary links are left clean.
    */
   return (tree: Root, file: VFile) => {
+    let transformed = false;
     const visitor: Visitor<Link> = (node, index, parent) => {
       if (parent == null || index == null || node.url == null) return;
 
-      var resolvedUrl;
+      let resolvedUrl;
       if (node.url.startsWith(".")) {
-        resolvedUrl = pathResolve(file.cwd, ...node.url.split("/"));
+        // For relative links, resolve them relative to the directory of the current file.
+        // file.history[0] contains the file path; get its directory.
+        const filePath = file.history?.[0] ?? file.path ?? ".";
+        const fileDir =
+          filePath.split(pathSep).slice(0, -1).join(pathSep) || ".";
+        resolvedUrl = pathResolve(fileDir, node.url);
       } else {
         resolvedUrl = pathSep + node.url.split("/").join(pathSep);
       }
@@ -56,20 +65,22 @@ export function remarkTransformGlossaryLink(
       const tooltipNode = buildGlossaryTooltipNode(termPath, node);
       (parent as Parent & { children: RootContent[] }).children[index] =
         tooltipNode as unknown as RootContent;
+      transformed = true;
     };
 
-    // import GlossaryTooltip component
-    const GlossaryTooltipImportStatement =
-      "import GlossaryTooltip from '@theme/GlossaryTooltip';";
-    tree.children.unshift({
-      type: "mdxjsEsm",
-      value: GlossaryTooltipImportStatement,
-      data: {
-        estree: AST.parse(GlossaryTooltipImportStatement),
-      },
-    });
-
     visit(tree, "link", visitor);
+
+    if (transformed) {
+      const GlossaryTooltipImportStatement =
+        "import GlossaryTooltip from '@theme/GlossaryTooltip';";
+      tree.children.unshift({
+        type: "mdxjsEsm",
+        value: GlossaryTooltipImportStatement,
+        data: {
+          estree: AST.parse(GlossaryTooltipImportStatement),
+        },
+      });
+    }
   };
 }
 

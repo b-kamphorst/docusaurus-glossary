@@ -19,7 +19,7 @@ exports[`loadTerms() parses terms and index file from fixture directory 1`] = `
   {
     "description": "Slugifying is needed here...",
     "hoverText": "Some term without id.",
-    "id": "slug me",
+    "id": undefined,
     "path": "slug me",
     "title": "Subterm",
   },
