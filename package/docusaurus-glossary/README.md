@@ -103,7 +103,7 @@ This glossary collects all our terms with a short description in a single overvi
 
 ### 3. Refer to a term
 
-In any markdown file under `docs/` (including the glossary terms themselves), just link to a term file like you usually do when you refer to another page:
+In any markdown file under `docs/` (including the glossary terms themselves), just link to a term file like you usually do when you refer to another page ([relative and with extension](https://docusaurus.io/docs/markdown-features/links)):
 
 `docs/index.md`
 
