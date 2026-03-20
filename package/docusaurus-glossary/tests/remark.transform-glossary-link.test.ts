@@ -99,10 +99,7 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input, { path: "./docs/somewhere/page.md" });
 
-    expect(output).toMatchInlineSnapshot(`
-"${input}
-"
-`);
+    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
 
   test("ignores absolute links to non-glossary routes", async () => {
@@ -110,10 +107,7 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input);
 
-    expect(output).toMatchInlineSnapshot(`
-"${input}
-"
-`);
+    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
 
   test("ignores relative links that resolve to subdirectories of glossary/", async () => {
@@ -121,10 +115,7 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input, { path: "./docs/page.md" });
 
-    expect(output).toMatchInlineSnapshot(`
-"${input}
-"
-`);
+    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
 
   test("ignores absolute links that resolve to subdirectories of glossary/", async () => {
@@ -132,10 +123,7 @@ describe("remarkTransformGlossaryLink", () => {
 
     const output = await run(input);
 
-    expect(output).toMatchInlineSnapshot(`
-"${input}
-"
-`);
+    expect(output).toMatchInlineSnapshot(`\n"${input}\n"\n`);
   });
 
   test("transforms relative links that resolve to x-glossary/glossary/", async () => {

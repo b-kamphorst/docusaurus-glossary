@@ -50,9 +50,8 @@ export default function loadTerms(dir: string): LoadTermsResult {
       const source = fs.readFileSync(fullPath, "utf-8");
       const { attributes, body } = fm<TermFrontmatter>(source);
 
-      const normalizedPath = normalizePath(f).replace(/\.mdx?/, "");
       return {
-        path: normalizedPath,
+        path: normalizePath(f).replace(/\.mdx?/, ""),
         id: attributes.id,
         title: attributes.title,
         hoverText: attributes.hoverText || "",
