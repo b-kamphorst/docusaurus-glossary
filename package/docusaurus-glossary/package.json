@@ -16,6 +16,10 @@
     "terms"
   ],
   "author": "Bart Kamphorst",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/b-kamphorst/docusaurus-glossary"
+  },
   "license": "MIT",
   "dependencies": {
     "abstract-syntax-tree": "^2.22.0",
